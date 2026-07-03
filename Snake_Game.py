@@ -1,4 +1,4 @@
-import pygame. sys
+import pygame, sys
 
 pygame.init()
 screen = pygame.display.set_mode((400, 500))
@@ -11,3 +11,4 @@ while True:
             sys.exit()
     pygame.display.update()
     clock.tick(60)  # Limit the frame rate to 60 FPS
+    
