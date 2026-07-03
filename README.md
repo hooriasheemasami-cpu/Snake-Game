@@ -1,9 +1,25 @@
-# Python Snake Game 🐍
+# 🐍 Python Snake Game
 
-My first Python project built with Pygame.
+A classic Snake Game built with Python and Pygame.
 
-## Goals
-- Learn Python
-- Understand Object-Oriented Programming
-- Build a complete game
-- Learn Git and GitHub
+## Features
+- Smooth snake movement
+- Food spawning
+- Score tracking
+- Game over detection
+
+## Technologies Used
+- Python
+- Pygame
+
+## How to Run
+1. Clone the repository.
+2. Install Pygame:
+   pip install pygame
+3. Run:
+   python Snake_Game.py
+
+## Future Improvements
+- Add sound effects
+- Add high score saving
+- Add difficulty levels
