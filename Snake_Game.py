@@ -34,7 +34,7 @@ class FRUIT:
        
     def draw_fruit(self): # Draw a square which will be the fruit
         fruit_rect = pygame.Rect(int(self.pos.x  * cell_size), int(self.pos.y * cell_size), cell_size, cell_size)  # Create a rectangle for the fruit
-        pygame.draw.rect(screen, (126, 166, 113), fruit_rect)
+        screen.blit(apple, fruit_rect) # Draw the apple image on the screen at the fruit's position
 
     def randomize(self): # Randomize the fruit's position
         self.x = random.randint(0, cell_number - 1) 
@@ -75,8 +75,11 @@ class MAIN:
 pygame.init()
 cell_size = 30
 cell_number = 20
+apple_size = cell_size
 screen = pygame.display.set_mode((cell_number * cell_size, cell_number * cell_size))
 clock = pygame.time.Clock()
+apple_original = pygame.image.load('Graphics/apple.png').convert_alpha() # Load the apple image for the fruit
+apple = pygame.transform.scale(apple_original, (apple_size, apple_size)) # Scale the apple image to fit the cell size
 
 main_game = MAIN()
 
