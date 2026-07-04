@@ -5,6 +5,7 @@ class SNAKE:
     def __init__(self): 
         self.body = [Vector2(5, 10), Vector2(6, 10), Vector2(7, 10)] # Create a list of vectors for the snake's body
         self.direction = Vector2(1, 0) # Initial direction to right side
+        self.new_block = False # This variable will be used to determine if a new block should be added to the snake's body
 
     def draw_snake(self): 
         for block in self.body: # This is the loop that will draw the snake
@@ -13,10 +14,20 @@ class SNAKE:
             block_rect = pygame.Rect(x_pos, y_pos, cell_size, cell_size) # Create a rectangle for each block of the snake
             pygame.draw.rect(screen, (233, 111, 122), block_rect) # Draw the rectangle on the screen with a color
 
-    def move_snake(self): 
-        body_copy = self.body[:-1] # Create a copy of the snake's body without the last block
-        body_copy.insert(0, body_copy[0] + self.direction) # This inserts a new block ahead of the snake in its moving direction
-        self.body = body_copy[:] # Update the snake's body with the new position
+    def move_snake(self):
+        if self.new_block == True: # If a new block should be added to the snake's body
+            body_copy = self.body[:] # Create a copy of the snake's body
+            body_copy.insert(0, body_copy[0] + self.direction) # This inserts a new block ahead of the snake in its moving direction
+            self.body = body_copy[:] # Update the snake's body with the new position
+            self.new_block = False # Reset the new_block variable to False after adding a new block
+        else:
+            body_copy = self.body[:-1] # Create a copy of the snake's body without the last block
+            body_copy.insert(0, body_copy[0] + self.direction) # This inserts a new block ahead of the snake in its moving direction
+            self.body = body_copy[:] # Update the snake's body with the new position
+
+    def add_block(self):
+        self.new_block = True
+               
 
 class FRUIT: 
     def __init__(self):
@@ -46,7 +57,8 @@ class MAIN:
 
     def check_collision(self): # Check for collision between the snake and the fruit
         if self.fruit.pos == self.snake.body[0]: # Check if the snake's head is at the same position as the fruit
-            self.fruit.randomize() # Randomize the fruit's position when the snake eats it   
+            self.fruit.randomize() # Randomize the fruit's position when the snake eats it 
+            self.snake.add_block()
 
 pygame.init()
 cell_size = 30
