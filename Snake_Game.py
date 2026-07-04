@@ -3,8 +3,8 @@ from pygame.math import Vector2
 
 class SNAKE:
     def __init__(self): 
-        self.body = [Vector2(5, 10), Vector2(6, 10), Vector2(7, 10)] # Create a list of vectors for the snake's body
-        self.direction = Vector2(1, 0) # Initial direction to right side
+        self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)] # Create a list of vectors for the snake's body
+        self.direction = Vector2(  1, 0) # Initial direction to right side
         self.new_block = False # This variable will be used to determine if a new block should be added to the snake's body
 
     def draw_snake(self): 
@@ -28,7 +28,6 @@ class SNAKE:
     def add_block(self):
         self.new_block = True
                
-
 class FRUIT: 
     def __init__(self):
         self.randomize() # Randomize the fruit's position when the game starts 
@@ -50,6 +49,7 @@ class MAIN:
     def update(self): # Update the game state
         self.snake.move_snake() # Move the snake in its current direction
         self.check_collision() 
+        self.check_fail()
 
     def draw_elements(self): # Draw the snake and fruit on the screen
         self.fruit.draw_fruit()
@@ -59,6 +59,18 @@ class MAIN:
         if self.fruit.pos == self.snake.body[0]: # Check if the snake's head is at the same position as the fruit
             self.fruit.randomize() # Randomize the fruit's position when the snake eats it 
             self.snake.add_block()
+
+    def check_fail(self): # Check if the snake has collided with itself or the walls
+        if not 0 <= self.snake.body[0].x < cell_number or not 0 <= self.snake.body[0].y < cell_number:
+            self.game_over() # If the snake's head is out of bounds, end the game
+        
+        for block in self.snake.body[1:]:
+            if block == self.snake.body[0]: # Check if the snake's head is at the same position as any other part of its body
+                self.game_over() # If the snake's head collides with its body, end the game
+
+    def game_over(self): # End the game
+        pygame.quit() # Quit the game
+        sys.exit() # Exit the program
 
 pygame.init()
 cell_size = 30
@@ -81,13 +93,17 @@ while True:
             main_game.update()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                main_game.snake.direction = Vector2(0, -1)
+                if main_game.snake.direction.y != 1:  # Prevent the snake from moving in the opposite direction
+                    main_game.snake.direction = Vector2(0, -1)
             if event.key == pygame.K_DOWN:
-                main_game.snake.direction = Vector2(0, 1)
+                if main_game.snake.direction.y != -1:  # Prevent the snake from moving in the opposite direction
+                    main_game.snake.direction = Vector2(0, 1)
             if event.key == pygame.K_LEFT:
-                main_game.snake.direction = Vector2(-1, 0)
+                if main_game.snake.direction.x != 1:  # Prevent the snake from moving in the opposite direction
+                    main_game.snake.direction = Vector2(-1, 0)
             if event.key == pygame.K_RIGHT:
-                main_game.snake.direction = Vector2(1, 0)
+                if main_game.snake.direction.x != -1:  # Prevent the snake from moving in the opposite direction
+                    main_game.snake.direction = Vector2(1, 0)
         
     screen.fill((180, 75, 200)) # Decide the screen color
     main_game.draw_elements() # Draw the snake and fruit on the screen
