@@ -52,6 +52,7 @@ class MAIN:
         self.check_fail()
 
     def draw_elements(self): # Draw the snake and fruit on the screen
+        self.draw_grass() 
         self.fruit.draw_fruit()
         self.snake.draw_snake() 
 
@@ -71,6 +72,21 @@ class MAIN:
     def game_over(self): # End the game
         pygame.quit() # Quit the game
         sys.exit() # Exit the program
+
+    def draw_grass(self):
+        grass_color = (190, 80, 210) # Set the color for the grass
+        for row in range(cell_number):
+            if row % 2 == 0: # Draw grass only on even rows
+                for col in range(cell_number):
+                    if col % 2 == 0: # Draw grass only on even columns
+                        grass_rect = pygame.Rect(col * cell_size, row * cell_size, cell_size, cell_size) # Create a rectangle for each column of grass
+                        pygame.draw.rect(screen, grass_color, grass_rect) # Draw the grass rectangle on the screen
+            else:
+                for col in range(cell_number):
+                    if col % 2 != 0: # Draw grass only on odd columns
+                        grass_rect = pygame.Rect(col * cell_size, row * cell_size, cell_size, cell_size)
+                        pygame.draw.rect(screen, grass_color, grass_rect) 
+
 
 pygame.init()
 cell_size = 30
