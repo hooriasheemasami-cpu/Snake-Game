@@ -23,3 +23,18 @@ A classic Snake Game built with Python and Pygame.
 - Add sound effects
 - Add high score saving
 - Add difficulty levels
+
+## Controls
+
+- ↑ Move Up
+- ↓ Move Down
+- ← Move Left
+- → Move Right
+
+## Features
+
+- Score counter
+- Sound effects
+- Collision detection
+- Random fruit spawning
+- Snake growth
