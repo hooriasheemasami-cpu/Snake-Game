@@ -6,7 +6,7 @@ class SNAKE:
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)] # Create a list of vectors for the snake's body
         self.direction = Vector2(0, 0) # Initial direction to right side
         self.new_block = False # This variable will be used to determine if a new block should be added to the snake's body
-        self.crunch_sound = pygame.mixer.Sound('Sound/Crunch.mp3') # Load the sound effect for when the snake eats a fruit
+        self.crunch_sound = pygame.mixer.Sound('Sound/Crunch.ogg') # Load the sound effect for when the snake eats a fruit
 
     def draw_snake(self): 
         for block in self.body: # This is the loop that will draw the snake
